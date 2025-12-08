@@ -31,24 +31,32 @@ It will:
 
 ---
 
-## Step 4: Enable Deployment (One-Time)
+## Step 4: Add GCP Secret (One-Time)
 
-After pushing, the deployment will **fail the first time**. This is normal!
-
-**Contact platform team:**
+**Get the secret from platform team:**
 ```
-"Please enable deployment for nelc/MY-APP-NAME"
+"Can I get the GCP_SA_KEY for deployments?"
 ```
 
-**They run one command (5 seconds):**
+**Add it to your repository:**
 ```bash
-./scripts/setup-app-secret.sh MY-APP-NAME
+# Platform team will give you a file or the key content
+# Save it as gcp-key.json in your app folder
+
+# Then run:
+cat gcp-key.json | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
 ```
 
-**Then you re-run the workflow:**
-- Go to: `https://github.com/nelc/MY-APP-NAME/actions`
-- Click on the failed run
-- Click "Re-run all jobs"
+**Or if they give you the key as text:**
+```bash
+echo 'PASTE_KEY_CONTENT_HERE' | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
+```
+
+**Trigger deployment:**
+```bash
+git commit --allow-empty -m "Trigger deployment"
+git push origin main
+```
 
 **Done!** ✅
 
