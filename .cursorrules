@@ -1,0 +1,116 @@
+# Cursor AI Rules for This Project
+
+## Project Context
+This is a template for deploying Node.js applications from Cursor to Google Cloud Platform (GCP) using Docker and Cloud Run.
+
+## Code Style
+- Use modern JavaScript (ES6+)
+- Prefer async/await over callbacks
+- Use structured logging with JSON format
+- Include error handling for all async operations
+- Add JSDoc comments for functions
+
+## Architecture
+- Express.js for HTTP server
+- PostgreSQL for relational data
+- Redis for caching (optional)
+- Docker for containerization
+- Cloud Run for deployment
+
+## Required Endpoints
+- `/health` - Health check (required for Cloud Run)
+- `/ready` - Readiness check
+- Error handlers for 404 and 500
+
+## Environment Variables
+- Always use `process.env.PORT` (Cloud Run provides this)
+- Never hardcode secrets or credentials
+- Document all env vars in env.example
+
+## Docker
+- Use multi-stage builds for optimization
+- Run as non-root user
+- Include health checks in Dockerfile
+- Keep images small (use Alpine when possible)
+
+## GCP Deployment
+- Support both dev and prod environments
+- Use Artifact Registry for images
+- Configure proper resource limits
+- Enable structured logging for Cloud Logging
+
+## Security
+- Use helmet.js for security headers
+- Validate and sanitize user input
+- Never expose sensitive data in logs
+- Use HTTPS only in production
+- Implement rate limiting for APIs
+
+## Testing
+- Write tests for critical paths
+- Mock external dependencies
+- Test health endpoints
+- Verify error handling
+
+## Performance
+- Use connection pooling for databases
+- Implement caching where appropriate
+- Compress responses
+- Set appropriate timeouts
+
+## Logging
+- Use structured JSON logging
+- Include request IDs for tracing
+- Log errors with context
+- Use appropriate log levels (info, warn, error)
+
+## Git
+- Never commit .env files
+- Never commit secrets or keys
+- Use meaningful commit messages
+- Keep .gitignore updated
+
+## When Helping Users
+- Prioritize simplicity and clarity
+- Provide working, tested code
+- Explain GCP-specific requirements
+- Reference relevant documentation
+- Consider cost implications
+- Suggest best practices
+
+## Common Patterns to Follow
+
+### Error Handling
+```javascript
+try {
+  // operation
+} catch (err) {
+  log('error', 'Operation failed', { error: err.message });
+  res.status(500).json({ error: 'Something went wrong' });
+}
+```
+
+### Structured Logging
+```javascript
+log('info', 'Message', { key: 'value', requestId: req.id });
+```
+
+### Health Checks
+```javascript
+app.get('/health', async (req, res) => {
+  // Check dependencies
+  res.json({ status: 'ok', checks: {...} });
+});
+```
+
+### Graceful Shutdown
+```javascript
+process.on('SIGTERM', async () => {
+  server.close();
+  await db.end();
+  process.exit(0);
+});
+```
+
+
+

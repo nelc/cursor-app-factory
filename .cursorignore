@@ -1,0 +1,43 @@
+# Cursor IDE ignore patterns
+# These files/folders will be excluded from Cursor's indexing for better performance
+
+# Dependencies
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Build artifacts
+dist/
+build/
+coverage/
+.next/
+.nuxt/
+target/
+out/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+logs/
+
+# Kubernetes generated files
+k8s-manifests/
+
+# Git
+.git/
+
+# Large compiled files
+*.min.js
+*.min.css
+bundle.js
+*.wasm
+
+# Documentation (keep these light)
+# Uncomment if you have very large docs
+# node_modules/
+# vendor/
