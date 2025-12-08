@@ -1,3 +1,20 @@
+# ⚠️  DO NOT MODIFY THIS FILE ⚠️
+# This workflow is pre-configured for your organization
+# All settings are already configured - just copy this file as-is
+# 
+# ✅ What's already configured:
+#    - GCP Project: app-sandbox-factory
+#    - Region: Dammam (me-central2)
+#    - Cluster: app-factory-prod
+#    - Credentials: Org-level secret (GCP_SA_KEY)
+#
+# 🚀 You just need to: git push origin main
+# 
+# ❌ DO NOT:
+#    - Add GitHub secrets manually (already done at org level)
+#    - Modify GCP_PROJECT_ID, GCP_REGION, or GKE_CLUSTER
+#    - Change the workflow structure
+
 name: Deploy to GKE
 
 on:
