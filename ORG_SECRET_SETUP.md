@@ -65,7 +65,7 @@ With org-level secret, business users now:
 ```bash
 mkdir -p .github/workflows
 curl -o .github/workflows/deploy-to-gke.yaml \
-  https://raw.githubusercontent.com/nelc/cursor-app-factory/main/.github/workflows/deploy-to-gke.yaml
+  https://raw.githubusercontent.com/nelc/cursor-app-factory/main/templates/deploy-to-gke.yaml
 ```
 
 **Step 2: Push to GitHub**

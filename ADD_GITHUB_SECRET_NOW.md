@@ -105,7 +105,7 @@ They'll be able to deploy with just:
 ```bash
 # Add workflow file
 curl -o .github/workflows/deploy-to-gke.yaml \
-  https://raw.githubusercontent.com/nelc/cursor-app-factory/main/.github/workflows/deploy-to-gke.yaml
+  https://raw.githubusercontent.com/nelc/cursor-app-factory/main/templates/deploy-to-gke.yaml
 
 # Push code
 git push

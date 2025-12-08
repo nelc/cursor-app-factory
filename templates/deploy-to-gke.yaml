@@ -203,4 +203,3 @@ jobs:
             commit_sha: context.sha,
             body: `🚀 **Deployment Successful!**\n\n✅ Your app is live at: http://${{ steps.get-ip.outputs.EXTERNAL_IP }}\n\nDeployed from commit: ${context.sha.substring(0, 7)}`
           })
-

@@ -20,7 +20,7 @@ In your app folder, run:
 ```bash
 mkdir -p .github/workflows
 curl -o .github/workflows/deploy-to-gke.yaml \
-  https://raw.githubusercontent.com/nelc/cursor-app-factory/main/.github/workflows/deploy-to-gke.yaml
+  https://raw.githubusercontent.com/nelc/cursor-app-factory/main/templates/deploy-to-gke.yaml
 ```
 
 *(Replace `nelc` with your actual org name)*
@@ -102,7 +102,7 @@ docker-compose up -d
 # 3. Add deployment
 mkdir -p .github/workflows
 curl -o .github/workflows/deploy-to-gke.yaml \
-  https://raw.githubusercontent.com/nelc/cursor-app-factory/main/.github/workflows/deploy-to-gke.yaml
+  https://raw.githubusercontent.com/nelc/cursor-app-factory/main/templates/deploy-to-gke.yaml
 
 # 4. Deploy
 gh repo create nelc/awesome-app --private
