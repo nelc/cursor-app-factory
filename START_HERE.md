@@ -1,142 +1,146 @@
-# 🚀 START HERE
+# 🚀 Cursor App Factory - Start Here
 
-## Welcome to Cursor App Factory!
-
-> **Build apps in Cursor. Deploy to production in 5 minutes.**
+> Deploy apps from Cursor to GCP in 3 steps
 
 ---
 
-## 📖 Documentation
+## 👨‍💼 For Business Users
 
-**→ [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md)** - Complete 3-step workflow (start here!)  
-**→ This file** - Detailed reference
+**Want to deploy an app? Read this:**
 
----
+### [📖 SIMPLE.md](SIMPLE.md) ← Start Here!
 
-## ⚡ What Is This?
+**3 steps:**
+1. Copy MAGIC_PROMPT.md → Build app
+2. Test: `docker-compose up -d`
+3. Copy DEPLOY_PROMPT.md → Deploy
 
-A simple workflow for **non-technical business teams** to:
-1. Build apps in Cursor
-2. Test locally with `docker-compose up -d`
-3. Deploy to production Kubernetes with `make deploy`
+**That's it!** 🎉
 
-**No complex setup. No technical knowledge required.**
+### The Two Prompts You Need:
 
----
+1. **[MAGIC_PROMPT.md](MAGIC_PROMPT.md)** - Build your app
+2. **[DEPLOY_PROMPT.md](DEPLOY_PROMPT.md)** - Deploy to GCP
 
-## 🎯 Quick Decision Tree
+### Need the GCP Key?
 
-### **Are you a business user building an app?**
-👉 Go to **[GET_STARTED.md](GET_STARTED.md)**
-
-### **Are you on the platform team?**
-👉 Go to **[SUMMARY.md](SUMMARY.md)** first, then **[GET_STARTED.md](GET_STARTED.md)**
-
-### **Are you an executive/stakeholder?**
-👉 Read **[SUMMARY.md](SUMMARY.md)** for the business case
-
-### **Just want to see all docs?**
-👉 Check **[INDEX.md](INDEX.md)** for the full list
+- **[GET_GCP_KEY.md](GET_GCP_KEY.md)** - How to get it from platform team
 
 ---
 
-## 🌟 The Magic Prompt
+## 🔧 For Platform Team
 
-The **most important file** in this repo is **[MAGIC_PROMPT.md](MAGIC_PROMPT.md)**.
+**Managing deployments? Read this:**
 
-When building apps in Cursor, you paste this prompt to ensure your app:
-- ✅ Works locally with `docker-compose up -d`
-- ✅ Deploys to production with `make deploy`
-- ✅ First user automatically becomes admin
-- ✅ All configuration via database UI (no env vars!)
-- ✅ Scales automatically in production
+### Main Guide:
+- **[PLATFORM_TEAM_GUIDE.md](PLATFORM_TEAM_GUIDE.md)** - Operations guide
 
-**Without this prompt, your app won't deploy correctly.** With it, everything just works.
+### Key Tasks:
 
----
+**Share GCP Key with Business Users:**
+- **[PLATFORM_TEAM_SHARE_KEY.md](PLATFORM_TEAM_SHARE_KEY.md)**
 
-## 📚 Documentation Overview
-
-| If You Want To... | Read This |
-|-------------------|-----------|
-| Get started in 5 minutes | **[GET_STARTED.md](GET_STARTED.md)** |
-| Get the magic prompt | **[MAGIC_PROMPT.md](MAGIC_PROMPT.md)** ⭐ |
-| Understand the approach | **[SUMMARY.md](SUMMARY.md)** |
-| See all documentation | **[INDEX.md](INDEX.md)** |
-| Deep dive into deployment | **[K8S_DEPLOYMENT_GUIDE.md](K8S_DEPLOYMENT_GUIDE.md)** |
-
----
-
-## ⚡ Super Quick Start
-
+**Enable New App (Optional):**
 ```bash
-# 1. Clone this repo
-git clone <repo-url>
-cd cursor-app-factory
-
-# 2. Configure
-cp env.example .env
-# Edit .env with your GCP_PROJECT_ID
-
-# 3. In Cursor, build your app and paste the Magic Prompt
-# (Get it from MAGIC_PROMPT.md)
-
-# 4. Test locally
-docker-compose up -d
-open http://localhost:8080
-
-# 5. Deploy to production
-make deploy
+./scripts/setup-app-secret.sh APP-NAME
 ```
 
-**Done!** You'll have a production URL in ~5 minutes.
+*Note: Business users can add the secret themselves. This script is optional.*
 
 ---
 
-## 💡 Why This Works
+## 📚 Reference Documentation
 
-### Before (350+ Failure Points)
-- ❌ Manual Cloud SQL setup
-- ❌ Complex environment variables
-- ❌ Manual admin user creation
-- ❌ Different config for dev/prod
-- ❌ Required understanding GCP
+### Overview:
+- **[SETUP_COMPLETE.md](SETUP_COMPLETE.md)** - Complete platform overview
 
-### Now (Simple & Reliable)
-- ✅ Database in docker-compose
-- ✅ All config in database UI
-- ✅ First user = admin (automatic)
-- ✅ Same setup everywhere
-- ✅ Zero GCP knowledge needed
+### Technical Details:
+- **[K8S_DEPLOYMENT_GUIDE.md](K8S_DEPLOYMENT_GUIDE.md)** - GKE deployment details
+- **[LESSONS_LEARNED.md](LESSONS_LEARNED.md)** - What we learned building this
 
 ---
 
-## 🎯 Critical Success Factor
+## 📦 Repository Structure
 
-**Everyone MUST use the Magic Prompt from [MAGIC_PROMPT.md](MAGIC_PROMPT.md).**
-
-This is non-negotiable. Without it, Cursor generates code that:
-- Uses wrong ports
-- Binds to localhost (health checks fail)
-- Requires manual admin setup
-- Has environment variable chaos
-
-**With the prompt**, everything works first time.
+```
+cursor-app-factory/
+├── SIMPLE.md                      ← Business users start here
+├── MAGIC_PROMPT.md                ← Prompt 1: Build app
+├── DEPLOY_PROMPT.md               ← Prompt 2: Deploy app
+├── GET_GCP_KEY.md                 ← How to get the key
+│
+├── PLATFORM_TEAM_GUIDE.md         ← Platform team operations
+├── PLATFORM_TEAM_SHARE_KEY.md     ← How to share keys
+│
+├── templates/
+│   ├── deploy-to-gke.yaml         ← GitHub Actions workflow
+│   ├── Dockerfile                 ← Example Dockerfile
+│   └── docker-compose.yaml        ← Example docker-compose
+│
+├── scripts/
+│   └── setup-app-secret.sh        ← Optional: Enable apps
+│
+├── SETUP_COMPLETE.md              ← Complete overview
+├── K8S_DEPLOYMENT_GUIDE.md        ← Technical details
+├── LESSONS_LEARNED.md             ← Lessons learned
+└── README.md                      ← About this repo
+```
 
 ---
 
-## 📞 Need Help?
+## ⚡ Quick Links
 
-- **Business Users**: Start with [GET_STARTED.md](GET_STARTED.md)
-- **Platform Team**: Start with [SUMMARY.md](SUMMARY.md)
-- **Everyone**: Use [INDEX.md](INDEX.md) to find the right doc
+### I want to...
+
+| Goal | Document |
+|------|----------|
+| **Deploy my first app** | [SIMPLE.md](SIMPLE.md) |
+| **Build an app** | [MAGIC_PROMPT.md](MAGIC_PROMPT.md) |
+| **Deploy an app** | [DEPLOY_PROMPT.md](DEPLOY_PROMPT.md) |
+| **Get the GCP key** | [GET_GCP_KEY.md](GET_GCP_KEY.md) |
+| **Share keys with users** | [PLATFORM_TEAM_SHARE_KEY.md](PLATFORM_TEAM_SHARE_KEY.md) |
+| **Understand the platform** | [SETUP_COMPLETE.md](SETUP_COMPLETE.md) |
+| **See technical details** | [K8S_DEPLOYMENT_GUIDE.md](K8S_DEPLOYMENT_GUIDE.md) |
 
 ---
 
-## 🚀 Next Step
+## 🎯 The Simple Workflow
 
-👉 **Go to [GET_STARTED.md](GET_STARTED.md) and follow the 5-minute guide!**
+```
+Business User:
+  1. Copy MAGIC_PROMPT → Build app in Cursor
+  2. Test locally: docker-compose up -d
+  3. Copy DEPLOY_PROMPT → Deploy with Cursor
+  4. Request GCP_SA_KEY from platform team
+  5. Cursor adds it to GitHub
+  6. Get URL → Live! ✨
+
+Platform Team:
+  1. Share github-actions-key.json with users
+  2. Done! (optional: use setup-app-secret.sh)
+```
 
 ---
 
-**Ready? Let's build something! 🎉**
+## 💡 Key Benefits
+
+- ✅ **3-step deployment** for business users
+- ✅ **No GCP knowledge** required
+- ✅ **Automatic CI/CD** via GitHub Actions
+- ✅ **Production-ready** apps in ~20 minutes
+- ✅ **Each app gets its own URL**
+- ✅ **Minimal platform team involvement**
+
+---
+
+## 🚀 Get Started
+
+**Business User?** → Read [SIMPLE.md](SIMPLE.md)
+
+**Platform Team?** → Read [PLATFORM_TEAM_GUIDE.md](PLATFORM_TEAM_GUIDE.md)
+
+**Want full details?** → Read [SETUP_COMPLETE.md](SETUP_COMPLETE.md)
+
+---
+
+**That's it!** Everything you need is in this repo. 🎉
