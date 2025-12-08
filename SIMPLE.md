@@ -14,11 +14,15 @@ Open http://localhost:8080
 
 ## 3. Deploy
 
-Copy `DEPLOY_PROMPT.md` → Paste in Cursor → Done
+Copy `DEPLOY_PROMPT.md` → Paste in Cursor
 
-**First time only:** Cursor will ask for GCP_SA_KEY  
-→ Get it from platform team  
-→ Cursor adds it  
+**First time only:**
+- Cursor says: "Need GCP_SA_KEY from platform team"
+- You message platform team: "Can I get the GCP_SA_KEY?"
+- They send you a file or key
+- You give it to Cursor
+- Cursor adds it to GitHub for you
+- Cursor deploys!
 
 **That's it!** ✅
 

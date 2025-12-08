@@ -28,18 +28,29 @@ Please help me with these steps:
    git remote add origin https://github.com/nelc/MY-APP-NAME.git
    git push -u origin main
 
-6. Ask the user to get the GCP_SA_KEY from the platform team:
-   "You need to add the GCP deployment secret. Please request the GCP_SA_KEY 
-   from the platform team (they'll give you a file or the key content).
+6. Tell the user they need the GCP deployment key:
+   "To deploy, you need the GCP_SA_KEY from your platform team. 
    
-   Once you have it, I'll help you add it to GitHub."
+   Please request it by messaging: 'Can I get the GCP_SA_KEY for deployments?'
+   
+   They'll send you either:
+   - A file (save it as gcp-key.json in your app folder)
+   - Or the key content as text
+   
+   Let me know when you have it, and I'll add it to GitHub for you."
 
-7. After they provide the key, add it as a GitHub secret:
-   - If they have a file (gcp-key.json):
-     cat gcp-key.json | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
+7. Once they provide the key, add it as a GitHub secret:
    
-   - If they provide the key content as text:
-     echo 'THEIR_KEY_CONTENT' | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
+   If they saved it as a file (gcp-key.json):
+   cat gcp-key.json | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
+   
+   If they give you the key content directly:
+   echo 'PASTE_THEIR_KEY_CONTENT_HERE' | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
+   
+   Then verify it was added:
+   gh secret list --repo nelc/MY-APP-NAME
+   
+   Confirm to the user: "✅ Secret added! You're ready to deploy."
 
 8. Trigger the deployment:
    git commit --allow-empty -m "Trigger deployment"
