@@ -28,25 +28,35 @@ Please help me with these steps:
    git remote add origin https://github.com/nelc/MY-APP-NAME.git
    git push -u origin main
 
+6. Ask the user to get the GCP_SA_KEY from the platform team:
+   "You need to add the GCP deployment secret. Please request the GCP_SA_KEY 
+   from the platform team (they'll give you a file or the key content).
+   
+   Once you have it, I'll help you add it to GitHub."
+
+7. After they provide the key, add it as a GitHub secret:
+   - If they have a file (gcp-key.json):
+     cat gcp-key.json | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
+   
+   - If they provide the key content as text:
+     echo 'THEIR_KEY_CONTENT' | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
+
+8. Trigger the deployment:
+   git commit --allow-empty -m "Trigger deployment"
+   git push origin main
+
 After pushing, tell me:
 - Where to watch the deployment progress (GitHub Actions URL)
-- That the first run will fail and I need to contact platform team
-- How to contact platform team for deployment enablement
-- How to re-run the workflow after platform team enables it
-- How long successful deployment will take (~10 minutes)
+- How long deployment will take (~10 minutes)
 - How to get my app's public URL when deployment finishes
+- That future updates will auto-deploy (no secret needed again)
 
 IMPORTANT REMINDERS:
 - Do NOT modify the downloaded workflow file
 - Do NOT create a custom workflow file
 - The workflow file must be used exactly as downloaded
-
-After pushing to GitHub:
-- The workflow will initially FAIL (this is expected)
-- Contact the platform team: "Please enable deployment for [REPO-NAME]"
-- Platform team will run one command (takes 5 seconds)
-- Then re-run the workflow from GitHub Actions
-- Deployment will succeed!
+- The user MUST add GCP_SA_KEY secret before deployment will work
+- The key is obtained from the platform team (one-time setup)
 
 Please execute these steps one by one and confirm each step before moving to the next.
 ```
