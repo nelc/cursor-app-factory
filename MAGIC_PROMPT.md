@@ -153,6 +153,31 @@ Settings table:
 - etc.
 ```
 
+### Database Connection (CRITICAL!)
+```javascript
+// ✅ CORRECT: Your app MUST use DATABASE_URL environment variable
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
+
+// ❌ WRONG: Do NOT use individual env vars
+// This will FAIL in production:
+const pool = new Pool({
+  host: process.env.DB_HOST || 'localhost',     // ❌ NO
+  port: process.env.DB_PORT || 5432,            // ❌ NO
+  database: process.env.DB_NAME,                // ❌ NO
+  user: process.env.DB_USER,                    // ❌ NO
+  password: process.env.DB_PASSWORD             // ❌ NO
+});
+```
+
+**Why?**
+- Docker Compose provides `DATABASE_URL=postgresql://user:pass@db:5432/dbname`
+- Kubernetes deployment provides `DATABASE_URL`
+- Individual env vars will connect to `localhost` and crash
+
 ---
 
 ## Troubleshooting
