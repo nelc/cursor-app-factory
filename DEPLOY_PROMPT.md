@@ -30,14 +30,23 @@ Please help me with these steps:
 
 After pushing, tell me:
 - Where to watch the deployment progress (GitHub Actions URL)
-- How long it will take (~10 minutes)
+- That the first run will fail and I need to contact platform team
+- How to contact platform team for deployment enablement
+- How to re-run the workflow after platform team enables it
+- How long successful deployment will take (~10 minutes)
 - How to get my app's public URL when deployment finishes
 
 IMPORTANT REMINDERS:
 - Do NOT modify the downloaded workflow file
-- Do NOT ask me to add any GitHub secrets (already configured at org level)
 - Do NOT create a custom workflow file
 - The workflow file must be used exactly as downloaded
+
+After pushing to GitHub:
+- The workflow will initially FAIL (this is expected)
+- Contact the platform team: "Please enable deployment for [REPO-NAME]"
+- Platform team will run one command (takes 5 seconds)
+- Then re-run the workflow from GitHub Actions
+- Deployment will succeed!
 
 Please execute these steps one by one and confirm each step before moving to the next.
 ```
@@ -87,10 +96,23 @@ When you paste this prompt, Cursor AI will:
 
 ## After Deployment
 
-**Watch Progress:**
-```
-https://github.com/nelc/YOUR-APP-NAME/actions
-```
+**First-time setup (one-time per app):**
+
+1. **Watch for initial failure:**
+   ```
+   https://github.com/nelc/YOUR-APP-NAME/actions
+   ```
+   The first workflow run will FAIL - this is expected!
+
+2. **Contact Platform Team:**
+   - Message: "Please enable deployment for nelc/YOUR-APP-NAME"
+   - Platform team runs: `./scripts/setup-app-secret.sh YOUR-APP-NAME`
+   - Takes 5 seconds
+
+3. **Re-run the workflow:**
+   - Go to the failed workflow run
+   - Click "Re-run all jobs" button
+   - Now it will succeed!
 
 **Get Your App URL:**
 - After ~10 minutes, the workflow will complete
@@ -98,6 +120,10 @@ https://github.com/nelc/YOUR-APP-NAME/actions
 - Or check: `kubectl get service YOUR-APP-NAME` (if you have kubectl access)
 
 **Your app will be live at:** `http://[LOADBALANCER-IP]`
+
+**Future deployments:**
+- Just push code → automatic deployment!
+- No need to contact platform team again
 
 ---
 
