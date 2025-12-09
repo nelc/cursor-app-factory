@@ -6,21 +6,29 @@ Update the existing diagram to show TWO parallel deployment tracks for business 
 
 **Development:**
 - Cursor Agent (blue)
-- Business user describes app in Cursor
-- AI generates complete application
+- Business user describes app in plain English
+- AI generates complete application with Dockerfile + docker-compose
 
-**Infrastructure:**
-- Auth: GitHub authentication
-- MCP: Model Context Protocol for GCP integration
-- Domain Agent: n8n DNS service (subdomain automation)
-- Backend: Cloud SQL (GCP) - PostgreSQL database
+**Local Testing:**
+- `docker-compose up -d`
+- PostgreSQL container + App container
+- Test locally in browser
 
-**Production:**
-- Deployed to GKE (Kubernetes)
-- Subdomain: `app-name.futurex.sa`
-- ✅ Full SSL/HTTPS
-- ✅ Auto-scaling
-- ✅ Production-ready
+**Deployment:**
+- GitHub Actions CI/CD pipeline
+- Builds Docker image → Artifact Registry
+- Deploys to GKE (Kubernetes)
+
+**Production Infrastructure (All in Kubernetes):**
+- App pods (Node.js application)
+- PostgreSQL StatefulSet (database with persistent storage)
+- nginx SSL sidecar (SSL termination)
+- LoadBalancer (external IP)
+
+**Domain & SSL:**
+- Cloudflare DNS: points to LoadBalancer IP
+- Cloudflare Origin Certificate + nginx
+- Result: `https://app-name.futurex.sa`
 
 **Status:** ✅ **PRODUCTION READY** (15 minutes from idea to live app)
 
@@ -34,17 +42,35 @@ Update the existing diagram to show TWO parallel deployment tracks for business 
 - AI generates complete application
 
 **Infrastructure:**
+- MCP server in Cloud Run (attempting to connect to GCP)
 - Auth: GitHub authentication
-- MCP: Model Context Protocol server (Cloud Run)
-- Domain Agent: n8n DNS service (subdomain automation)
+- Domain Agent: n8n DNS service
 - Backend: Supabase (AWS) - PostgreSQL database
 
 **Production:**
-- Deployed to subdomain
+- Attempting to deploy to subdomain
 - ⚠️ **Issue:** MCP server in Cloud Run cannot connect to GCP database
 - Status: In development/troubleshooting
 
 **Status:** ⚠️ **IN PROGRESS** (MCP-to-GCP connectivity issue)
+
+---
+
+## Key Differences:
+
+**Cursor Track (Simple & Working):**
+- ✅ Everything in Kubernetes (app + database + SSL)
+- ✅ No external MCP servers
+- ✅ No Cloud SQL (uses PostgreSQL in K8s)
+- ✅ GitHub Actions for CI/CD
+- ✅ Cloudflare for DNS + SSL
+- ✅ Complete automation
+
+**Lovable Track (Complex & In Progress):**
+- ⚠️ MCP server in Cloud Run (external dependency)
+- ⚠️ Attempting Supabase backend
+- ⚠️ n8n for DNS automation
+- ⚠️ Connectivity issues
 
 ---
 
@@ -57,19 +83,16 @@ Update the existing diagram to show TWO parallel deployment tracks for business 
 3. **Status indicators:**
    - Green checkmark ✅ for Cursor track (working)
    - Yellow warning ⚠️ for Lovable track (in progress)
-4. **Shared components:**
-   - Both use: Auth, MCP, Domain Agent (n8n DNS)
-   - Different backends: GCP Cloud SQL vs Supabase
-5. **Flow:** Development → Infrastructure (Auth/MCP/Domain/Backend) → Production
-6. **Emphasis:** Show Cursor track as the proven, working solution
+4. **Cursor track flow:**
+   - Cursor → docker-compose (local test) → GitHub Actions → GKE (K8s: App + PostgreSQL + nginx) → Cloudflare → https://app.futurex.sa
+5. **Emphasis:** Show Cursor track as the proven, simple, working solution
 
 ---
 
 ## Key Message:
 
-"Two parallel tracks for business users to deploy apps from AI coding assistants to production. **Cursor track is production-ready** with full automation. Lovable track is in development."
+"Two parallel tracks for business users to deploy apps from AI coding assistants to production. **Cursor track is production-ready with everything in Kubernetes** - simple, fast, fully automated. Lovable track is in development with external dependencies."
 
 ---
 
-Make it suitable for executive presentations showing both the working solution and ongoing initiatives.
-
+Make it suitable for executive presentations showing the working solution (Cursor) vs the experimental approach (Lovable).
