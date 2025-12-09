@@ -20,12 +20,20 @@ Please help me with these steps:
 
 3. Initialize git if not already done, and show me what files will be committed
 
-4. Guide me to create a GitHub repository in the nelc organization with this command format:
-   gh repo create nelc/MY-APP-NAME --private
+4. Guide me to create a GitHub repository in the nelc organization (only if it doesn't exist):
+   
+   First check if it exists:
+   if ! gh repo view nelc/MY-APP-NAME >/dev/null 2>&1; then
+     gh repo create nelc/MY-APP-NAME --private
+     echo "Repository created successfully"
+   else
+     echo "Repository already exists, skipping creation"
+   fi
+   
    (Help me choose a good app name based on what my app does)
 
-5. Add the remote and push to GitHub:
-   git remote add origin https://github.com/nelc/MY-APP-NAME.git
+5. Add the remote (if not already added) and push to GitHub:
+   git remote add origin https://github.com/nelc/MY-APP-NAME.git 2>/dev/null || echo "Remote already exists"
    git push -u origin main
 
 6. Tell the user they need the GCP deployment key:
@@ -91,8 +99,12 @@ git init
 git add .
 git commit -m "Deploy my app"
 
-gh repo create nelc/[suggest-a-name-based-on-my-app] --private
-git remote add origin https://github.com/nelc/[repo-name].git
+# Create repo only if it doesn't exist
+if ! gh repo view nelc/[suggest-a-name] >/dev/null 2>&1; then
+  gh repo create nelc/[suggest-a-name] --private
+fi
+
+git remote add origin https://github.com/nelc/[repo-name].git 2>/dev/null || true
 git push -u origin main
 
 Then tell me where to watch the deployment and how to get my app URL.
