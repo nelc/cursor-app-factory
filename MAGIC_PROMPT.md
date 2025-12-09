@@ -16,6 +16,8 @@ Additional requirements:
 - Health check endpoint at /health that returns {"status":"healthy"}
 - All secrets and configuration in database Settings table
 - Docker container MUST use process.env.PORT with fallback to 8080
+- For Node.js apps: MUST generate package-lock.json by running 'npm install' after creating package.json
+- Application MUST parse DATABASE_URL for database connection (e.g., postgresql://user:pass@host:port/db)
 ```
 
 ---
@@ -32,6 +34,12 @@ You: "Build me a [describe your app]"
 ```
 You: [Paste the Magic Prompt above]
 [creates Dockerfile, docker-compose.yml, adds admin logic, adds settings page]
+```
+
+### Step 2.5: Ensure Dependencies Are Locked (Node.js only)
+```
+You: "Run npm install to generate package-lock.json"
+[generates package-lock.json]
 ```
 
 ### Step 3: Test Locally

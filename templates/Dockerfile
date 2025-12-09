@@ -1,7 +1,5 @@
-# Multi-stage Dockerfile for production-ready apps
-# Supports Node.js, Python, and Go - modify as needed
-
-# Example for Node.js application
+# Production-ready Dockerfile for Node.js applications
+# This template works with or without package-lock.json
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -9,8 +7,8 @@ WORKDIR /app
 # Copy dependency files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install dependencies (works with or without package-lock.json)
+RUN npm install --production
 
 # Copy application code
 COPY . .

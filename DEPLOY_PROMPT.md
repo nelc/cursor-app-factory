@@ -10,6 +10,9 @@
 I have a working application that I've built and tested locally with docker-compose. 
 Now I need to deploy it to GCP (Google Cloud Platform) in the nelc organization.
 
+IMPORTANT: For Node.js apps, ensure package-lock.json exists before deployment:
+  npm install
+
 Please help me with these steps:
 
 1. Create the .github/workflows directory if it doesn't exist
