@@ -18,6 +18,7 @@ Additional requirements:
 - Docker container MUST use process.env.PORT with fallback to 8080
 - For Node.js apps: MUST generate package-lock.json by running 'npm install' after creating package.json
 - Application MUST parse DATABASE_URL for database connection (e.g., postgresql://user:pass@host:port/db)
+- MUST create .dockerignore file that excludes: node_modules, .git, .env, *.log
 ```
 
 ---
