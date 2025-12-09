@@ -14,15 +14,10 @@ Open http://localhost:8080
 
 ## 3. Deploy
 
-Copy `DEPLOY_PROMPT.md` → Paste in Cursor
+Copy `DEPLOY_PROMPT.md` → Paste in Cursor → Done!
 
-**First time only:**
-- Cursor says: "Need GCP_SA_KEY from platform team"
-- You message platform team: "Can I get the GCP_SA_KEY?"
-- They send you a file or key
-- You give it to Cursor
-- Cursor adds it to GitHub for you
-- Cursor deploys!
+**No secrets needed!** ✨  
+Authentication is automatic via Workload Identity Federation.
 
 **That's it!** ✅
 
@@ -45,6 +40,6 @@ Auto-deploys! 🎉
 2. Test locally
 3. One prompt → Deploy
 
-**First time**: Platform team gives you one key  
-**Every time after**: Just push code
+**No keys, no secrets, no waiting!**  
+Just push code → Auto-deploy ✨
 

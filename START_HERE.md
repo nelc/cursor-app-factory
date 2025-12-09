@@ -22,9 +22,8 @@
 1. **[MAGIC_PROMPT.md](MAGIC_PROMPT.md)** - Build your app
 2. **[DEPLOY_PROMPT.md](DEPLOY_PROMPT.md)** - Deploy to GCP
 
-### Need the GCP Key?
-
-- **[GET_GCP_KEY.md](GET_GCP_KEY.md)** - How to get it from platform team
+**No secrets or keys needed!** ✨  
+Authentication is automatic via Workload Identity Federation.
 
 ---
 
@@ -37,15 +36,10 @@
 
 ### Key Tasks:
 
-**Share GCP Key with Business Users:**
-- **[PLATFORM_TEAM_SHARE_KEY.md](PLATFORM_TEAM_SHARE_KEY.md)**
-
-**Enable New App (Optional):**
-```bash
-./scripts/setup-app-secret.sh APP-NAME
-```
-
-*Note: Business users can add the secret themselves. This script is optional.*
+**Workload Identity Federation:**
+- ✅ Already configured! No keys to manage.
+- ✅ Automatic authentication for all nelc repositories.
+- ✅ Zero ongoing maintenance required.
 
 ---
 
@@ -111,13 +105,11 @@ Business User:
   1. Copy MAGIC_PROMPT → Build app in Cursor
   2. Test locally: docker-compose up -d
   3. Copy DEPLOY_PROMPT → Deploy with Cursor
-  4. Request GCP_SA_KEY from platform team
-  5. Cursor adds it to GitHub
-  6. Get URL → Live! ✨
+  4. Get URL → Live! ✨
 
 Platform Team:
-  1. Share github-actions-key.json with users
-  2. Done! (optional: use setup-app-secret.sh)
+  1. Workload Identity already configured!
+  2. Nothing to do! ✅
 ```
 
 ---
@@ -126,10 +118,11 @@ Platform Team:
 
 - ✅ **3-step deployment** for business users
 - ✅ **No GCP knowledge** required
+- ✅ **No secrets or keys to manage** (automatic authentication!)
 - ✅ **Automatic CI/CD** via GitHub Actions
 - ✅ **Production-ready** apps in ~20 minutes
 - ✅ **Each app gets its own URL**
-- ✅ **Minimal platform team involvement**
+- ✅ **Zero platform team involvement**
 
 ---
 

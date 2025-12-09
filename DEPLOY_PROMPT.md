@@ -35,49 +35,26 @@ Please help me with these steps:
    
    (Help me choose a good app name based on what my app does)
 
-5. Add the remote (if not already added) and push to GitHub:
+5. Add the remote (if not already added) and push to GitHub to deploy:
    git remote add origin https://github.com/nelc/MY-APP-NAME.git 2>/dev/null || echo "Remote already exists"
    git push -u origin main
-
-6. Tell the user they need the GCP deployment key:
-   "To deploy, you need the GCP_SA_KEY from your platform team. 
    
-   Please request it by messaging: 'Can I get the GCP_SA_KEY for deployments?'
+   ✨ That's it! The deployment will start automatically!
    
-   They'll send you either:
-   - A file (save it as gcp-key.json in your app folder)
-   - Or the key content as text
-   
-   Let me know when you have it, and I'll add it to GitHub for you."
-
-7. Once they provide the key, add it as a GitHub secret:
-   
-   If they saved it as a file (gcp-key.json):
-   cat gcp-key.json | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
-   
-   If they give you the key content directly:
-   echo 'PASTE_THEIR_KEY_CONTENT_HERE' | gh secret set GCP_SA_KEY --repo nelc/MY-APP-NAME
-   
-   Then verify it was added:
-   gh secret list --repo nelc/MY-APP-NAME
-   
-   Confirm to the user: "✅ Secret added! You're ready to deploy."
-
-8. Trigger the deployment:
-   git commit --allow-empty -m "Trigger deployment"
-   git push origin main
+   Note: Authentication to GCP is automatic via Workload Identity Federation.
+   No secrets or keys needed!
 
 After pushing, tell me:
 - Where to watch the deployment progress (GitHub Actions URL)
 - How long deployment will take (~10 minutes)
 - How to get my app's public URL when deployment finishes
-- That future updates will auto-deploy (no secret needed again)
+- That future updates will auto-deploy on every git push
 
 IMPORTANT REMINDERS:
 - Do NOT modify the downloaded workflow file
 - Do NOT create a custom workflow file
 - The workflow file must be used exactly as downloaded
-- The user MUST add GCP_SA_KEY secret before deployment will work
+- Authentication is automatic - no secrets needed!
 - The key is obtained from the platform team (one-time setup)
 
 Please execute these steps one by one and confirm each step before moving to the next.

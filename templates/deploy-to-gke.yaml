@@ -6,12 +6,12 @@
 #    - GCP Project: app-sandbox-factory
 #    - Region: Dammam (me-central2)
 #    - Cluster: app-factory-prod
-#    - Credentials: Org-level secret (GCP_SA_KEY)
+#    - Authentication: Workload Identity Federation (automatic!)
 #
 # 🚀 You just need to: git push origin main
 # 
 # ❌ DO NOT:
-#    - Add GitHub secrets manually (already done at org level)
+#    - Add GitHub secrets (NOT NEEDED - authentication is automatic!)
 #    - Modify GCP_PROJECT_ID, GCP_REGION, or GKE_CLUSTER
 #    - Change the workflow structure
 
@@ -22,6 +22,10 @@ on:
     branches:
       - main
       - master
+
+permissions:
+  contents: read
+  id-token: write
 
 env:
   GCP_PROJECT_ID: app-sandbox-factory
@@ -41,7 +45,8 @@ jobs:
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        workload_identity_provider: 'projects/621571041797/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+        service_account: 'github-actions@app-sandbox-factory.iam.gserviceaccount.com'
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
