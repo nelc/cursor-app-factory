@@ -1,199 +1,77 @@
-# 🚀 Deployment Prompt for Cursor AI
+# 🚀 Deployment Prompt
 
-> **For Business Users**: Copy this entire prompt and paste it into Cursor AI to deploy your app to GCP.
-
----
-
-## Copy-Paste This Prompt into Cursor:
-
-```
-I have a working application that I've built and tested locally with docker-compose. 
-Now I need to deploy it to GCP (Google Cloud Platform) in the nelc organization.
-
-IMPORTANT: For Node.js apps, ensure package-lock.json exists before deployment:
-  npm install
-
-Please help me with these steps:
-
-1. Create the .github/workflows directory if it doesn't exist
-
-2. Download the pre-configured deployment workflow file:
-   curl -o .github/workflows/deploy-to-gke.yaml \
-     https://raw.githubusercontent.com/nelc/cursor-app-factory/main/templates/deploy-to-gke.yaml
-
-3. Initialize git if not already done, and show me what files will be committed
-
-4. Guide me to create a GitHub repository in the nelc organization (only if it doesn't exist):
-   
-   First check if it exists:
-   if ! gh repo view nelc/MY-APP-NAME >/dev/null 2>&1; then
-     gh repo create nelc/MY-APP-NAME --private
-     echo "Repository created successfully"
-   else
-     echo "Repository already exists, skipping creation"
-   fi
-   
-   (Help me choose a good app name based on what my app does)
-
-5. Add the remote (if not already added) and push to GitHub to deploy:
-   git remote add origin https://github.com/nelc/MY-APP-NAME.git 2>/dev/null || echo "Remote already exists"
-   git push -u origin main
-   
-   ✨ That's it! The deployment will start automatically!
-   
-   Note: Authentication to GCP is automatic via Workload Identity Federation.
-   No secrets or keys needed!
-
-After pushing, tell me:
-- Where to watch the deployment progress (GitHub Actions URL)
-- How long deployment will take (~10 minutes)
-- How to get my app's public URL when deployment finishes
-- That future updates will auto-deploy on every git push
-
-IMPORTANT REMINDERS:
-- Do NOT modify the downloaded workflow file
-- Do NOT create a custom workflow file
-- The workflow file must be used exactly as downloaded
-- Authentication is automatic - no secrets needed!
-- The key is obtained from the platform team (one-time setup)
-
-Please execute these steps one by one and confirm each step before moving to the next.
-```
+> **This prompt is now integrated into [MAGIC_PROMPT.md](MAGIC_PROMPT.md)**
 
 ---
 
-## Alternative: Ultra-Short Version
+## For New Apps
 
-If the business user just wants the commands without explanation:
+If you're building a new app, use the **single consolidated prompt** in:
 
-```
-I need to deploy my app to GCP. My app is already built and tested locally.
+**[MAGIC_PROMPT.md](MAGIC_PROMPT.md)**
 
-Run these commands for me:
+This one prompt handles:
+- ✅ App structure
+- ✅ Docker setup
+- ✅ Database configuration
+- ✅ **Deployment workflow** (downloads automatically)
+- ✅ Health checks
+- ✅ Everything else
 
+Then just push to GitHub and it deploys automatically!
+
+---
+
+## For Existing Apps (Already Built)
+
+If you already have an app and just want to add deployment:
+
+### Step 1: Download Deployment Workflow
+
+```bash
 mkdir -p .github/workflows
 curl -o .github/workflows/deploy-to-gke.yaml \
   https://raw.githubusercontent.com/nelc/cursor-app-factory/main/templates/deploy-to-gke.yaml
+```
 
-git init
-git add .
-git commit -m "Deploy my app"
+### Step 2: Ensure Compatibility
 
-# Create repo only if it doesn't exist
-if ! gh repo view nelc/[suggest-a-name] >/dev/null 2>&1; then
-  gh repo create nelc/[suggest-a-name] --private
+Tell Cursor:
+```
+Review the deployment workflow in .github/workflows/deploy-to-gke.yaml and my application.
+Make minimal compatibility fixes if needed:
+- Ensure app listens on port 8080
+- Ensure app binds to 0.0.0.0
+- Ensure /health endpoint exists and returns {"status":"healthy"}
+- Ensure app uses DATABASE_URL environment variable for database connection
+- Ensure .dockerignore exists with: node_modules, .git, .env, *.log
+```
+
+### Step 3: Create GitHub Repo (if needed)
+
+```bash
+# Check if repo exists
+if ! gh repo view nelc/MY-APP-NAME >/dev/null 2>&1; then
+  gh repo create nelc/MY-APP-NAME --private
+  echo "Repository created"
+else
+  echo "Repository already exists"
 fi
+```
 
-git remote add origin https://github.com/nelc/[repo-name].git 2>/dev/null || true
+### Step 4: Push to Deploy
+
+```bash
+git add .
+git commit -m "Add deployment workflow"
+git remote add origin https://github.com/nelc/MY-APP-NAME.git
 git push -u origin main
-
-Then tell me where to watch the deployment and how to get my app URL.
 ```
 
----
-
-## What Cursor AI Will Do
-
-When you paste this prompt, Cursor AI will:
-
-1. ✅ Create the `.github/workflows/` directory
-2. ✅ Download the deployment workflow (pre-configured, zero config needed)
-3. ✅ Show you what files will be committed
-4. ✅ Help you pick a good repository name
-5. ✅ Create the GitHub repo in the `nelc` organization
-6. ✅ Push your code to GitHub
-7. ✅ Tell you where to watch deployment progress
-8. ✅ Explain how to get your app's URL
+**Done!** GitHub Actions deploys automatically.
 
 ---
 
-## After Deployment
+## Recommended: Use the New Workflow
 
-**First-time setup (one-time per app):**
-
-1. **Watch for initial failure:**
-   ```
-   https://github.com/nelc/YOUR-APP-NAME/actions
-   ```
-   The first workflow run will FAIL - this is expected!
-
-2. **Contact Platform Team:**
-   - Message: "Please enable deployment for nelc/YOUR-APP-NAME"
-   - Platform team runs: `./scripts/setup-app-secret.sh YOUR-APP-NAME`
-   - Takes 5 seconds
-
-3. **Re-run the workflow:**
-   - Go to the failed workflow run
-   - Click "Re-run all jobs" button
-   - Now it will succeed!
-
-**Get Your App URL:**
-- After ~10 minutes, the workflow will complete
-- GitHub will post a comment on your commit with the public URL
-- Or check: `kubectl get service YOUR-APP-NAME` (if you have kubectl access)
-
-**Your app will be live at:** `http://[LOADBALANCER-IP]`
-
-**Future deployments:**
-- Just push code → automatic deployment!
-- No need to contact platform team again
-
----
-
-## Troubleshooting
-
-If Cursor AI asks you to add secrets:
-- ❌ **STOP!** You shouldn't need to add any secrets
-- ✅ The workflow file might be wrong - make sure you downloaded it from the correct URL
-- ✅ Re-download: `https://raw.githubusercontent.com/nelc/cursor-app-factory/main/templates/deploy-to-gke.yaml`
-
-If deployment fails:
-1. Check GitHub Actions for error details
-2. Common issues:
-   - No `/health` endpoint → App must have a health check
-   - Not running on port 8080 → App must listen on port 8080
-   - Missing Dockerfile or docker-compose.yaml → Use MAGIC_PROMPT to rebuild
-
----
-
-## Need Help?
-
-- **Building apps**: See `MAGIC_PROMPT.md` in cursor-app-factory repo
-- **Step-by-step guide**: See `BEGINNER_GUIDE.md`
-- **Deployment only**: See `BUSINESS_USER_DEPLOY.md`
-
----
-
-## Example Conversation with Cursor
-
-**You:**
-```
-I have a working task manager app tested locally. Deploy it to GCP using the prompt above.
-```
-
-**Cursor AI will:**
-```
-I'll help you deploy to GCP. Let me:
-
-1. Create .github/workflows directory...
-2. Download the deployment workflow...
-3. Check your files...
-4. Your app appears to be a task manager. I suggest the repo name: nelc/task-manager-pro
-5. Creating GitHub repo...
-6. Pushing to GitHub...
-
-✅ Done! Your app is deploying.
-
-Watch progress: https://github.com/nelc/task-manager-pro/actions
-
-Deployment takes ~10 minutes. The URL will be posted as a comment on your latest commit.
-```
-
----
-
-## Summary
-
-**Just copy the prompt above and paste it into Cursor AI. That's it!** 🚀
-
-No GCP credentials needed. No secrets to configure. Just deploy!
-
+For the best experience, start fresh with **[MAGIC_PROMPT.md](MAGIC_PROMPT.md)** - it's simpler and handles everything in one go!

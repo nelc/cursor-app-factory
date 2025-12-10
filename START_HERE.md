@@ -1,56 +1,78 @@
 # 🚀 Cursor App Factory - Start Here
 
-> Deploy apps from Cursor to GCP in 3 steps
+> Deploy production apps from Cursor to GCP in 3 steps
 
 ---
 
 ## 👨‍💼 For Business Users
 
-**Want to deploy an app? Read this:**
+**Want to deploy an app? Here's how:**
 
 ### [📖 SIMPLE.md](SIMPLE.md) ← Start Here!
 
-**3 steps:**
-1. Copy MAGIC_PROMPT.md → Build app
-2. Test: `docker-compose up -d`
-3. Copy DEPLOY_PROMPT.md → Deploy
+**The 3-step workflow:**
 
-**That's it!** 🎉
+1. **Describe your app** in Cursor
+2. **Paste the magic prompt** from [MAGIC_PROMPT.md](MAGIC_PROMPT.md)
+3. **Push to GitHub**
 
-### The Two Prompts You Need:
+**Done!** Your app deploys automatically with SSL. 🎉
 
-1. **[MAGIC_PROMPT.md](MAGIC_PROMPT.md)** - Build your app
-2. **[DEPLOY_PROMPT.md](DEPLOY_PROMPT.md)** - Deploy to GCP
+---
 
-**No secrets or keys needed!** ✨  
-Authentication is automatic via Workload Identity Federation.
+## 🎯 What You Get
+
+- ✅ **No keys or secrets** - Authentication is automatic (Workload Identity Federation)
+- ✅ **No GCP knowledge** required
+- ✅ **Automatic SSL/HTTPS** via Cloudflare
+- ✅ **Auto-scaling** on GKE Autopilot
+- ✅ **5-10 minute deployments** from push to production
+- ✅ **Each app gets its own URL**
+- ✅ **Zero platform team involvement**
+
+---
+
+## 📋 The One Prompt You Need
+
+### [MAGIC_PROMPT.md](MAGIC_PROMPT.md)
+
+This single prompt tells Cursor to:
+- ✅ Create production-ready Dockerfile
+- ✅ Create docker-compose.yml with PostgreSQL
+- ✅ Add health checks
+- ✅ Download deployment workflow
+- ✅ Implement first-user-is-admin logic
+- ✅ Create Settings Page UI
+- ✅ Add .dockerignore for optimized builds
 
 ---
 
 ## 🔧 For Platform Team
 
-**Managing deployments? Read this:**
-
 ### Main Guide:
 - **[PLATFORM_TEAM_GUIDE.md](PLATFORM_TEAM_GUIDE.md)** - Operations guide
 
-### Key Tasks:
+### Key Info:
 
 **Workload Identity Federation:**
-- ✅ Already configured! No keys to manage.
-- ✅ Automatic authentication for all nelc repositories.
-- ✅ Zero ongoing maintenance required.
+- ✅ Already configured
+- ✅ Automatic authentication for all nelc repos
+- ✅ Zero ongoing maintenance
+
+**Infrastructure:**
+- ✅ GKE Autopilot cluster running
+- ✅ Artifact Registry configured
+- ✅ Cloudflare SSL certificates deployed
+- ✅ GitHub Actions workflows in `templates/`
 
 ---
 
 ## 📚 Reference Documentation
 
-### Overview:
 - **[SETUP_COMPLETE.md](SETUP_COMPLETE.md)** - Complete platform overview
-
-### Technical Details:
 - **[K8S_DEPLOYMENT_GUIDE.md](K8S_DEPLOYMENT_GUIDE.md)** - GKE deployment details
 - **[LESSONS_LEARNED.md](LESSONS_LEARNED.md)** - What we learned building this
+- **[GEMINI_DIAGRAM_PROMPT.md](GEMINI_DIAGRAM_PROMPT.md)** - Generate workflow diagrams
 
 ---
 
@@ -58,24 +80,19 @@ Authentication is automatic via Workload Identity Federation.
 
 ```
 cursor-app-factory/
-├── SIMPLE.md                      ← Business users start here
-├── MAGIC_PROMPT.md                ← Prompt 1: Build app
-├── DEPLOY_PROMPT.md               ← Prompt 2: Deploy app
-├── GET_GCP_KEY.md                 ← How to get the key
-│
-├── PLATFORM_TEAM_GUIDE.md         ← Platform team operations
-├── PLATFORM_TEAM_SHARE_KEY.md     ← How to share keys
+├── START_HERE.md                  ← You are here
+├── SIMPLE.md                      ← 3-step quick start
+├── MAGIC_PROMPT.md                ← The one prompt for everything
 │
 ├── templates/
 │   ├── deploy-to-gke.yaml         ← GitHub Actions workflow
 │   ├── Dockerfile                 ← Example Dockerfile
-│   └── docker-compose.yaml        ← Example docker-compose
+│   ├── docker-compose.yaml        ← Example docker-compose
+│   └── .dockerignore              ← Docker build optimization
 │
-├── scripts/
-│   └── setup-app-secret.sh        ← Optional: Enable apps
-│
-├── SETUP_COMPLETE.md              ← Complete overview
-├── K8S_DEPLOYMENT_GUIDE.md        ← Technical details
+├── PLATFORM_TEAM_GUIDE.md         ← For platform team
+├── SETUP_COMPLETE.md              ← Platform architecture
+├── K8S_DEPLOYMENT_GUIDE.md        ← Technical deployment guide
 ├── LESSONS_LEARNED.md             ← Lessons learned
 └── README.md                      ← About this repo
 ```
@@ -84,49 +101,33 @@ cursor-app-factory/
 
 ## ⚡ Quick Links
 
-### I want to...
-
-| Goal | Document |
-|------|----------|
+| I want to... | Document |
+|--------------|----------|
 | **Deploy my first app** | [SIMPLE.md](SIMPLE.md) |
-| **Build an app** | [MAGIC_PROMPT.md](MAGIC_PROMPT.md) |
-| **Deploy an app** | [DEPLOY_PROMPT.md](DEPLOY_PROMPT.md) |
-| **Get the GCP key** | [GET_GCP_KEY.md](GET_GCP_KEY.md) |
-| **Share keys with users** | [PLATFORM_TEAM_SHARE_KEY.md](PLATFORM_TEAM_SHARE_KEY.md) |
+| **See the magic prompt** | [MAGIC_PROMPT.md](MAGIC_PROMPT.md) |
 | **Understand the platform** | [SETUP_COMPLETE.md](SETUP_COMPLETE.md) |
-| **See technical details** | [K8S_DEPLOYMENT_GUIDE.md](K8S_DEPLOYMENT_GUIDE.md) |
+| **Platform team guide** | [PLATFORM_TEAM_GUIDE.md](PLATFORM_TEAM_GUIDE.md) |
+| **Technical details** | [K8S_DEPLOYMENT_GUIDE.md](K8S_DEPLOYMENT_GUIDE.md) |
 
 ---
 
-## 🎯 The Simple Workflow
+## 🎯 The Complete Workflow
 
 ```
 Business User:
-  1. Copy MAGIC_PROMPT → Build app in Cursor
-  2. Test locally: docker-compose up -d
-  3. Copy DEPLOY_PROMPT → Deploy with Cursor
-  4. Get URL → Live! ✨
+  1. Tell Cursor what you want: "Build me a task manager"
+  2. Paste MAGIC_PROMPT.md → Cursor creates everything
+  3. Push to GitHub
+  4. Wait 5-10 minutes → App is live with HTTPS! ✨
 
 Platform Team:
-  1. Workload Identity already configured!
-  2. Nothing to do! ✅
+  1. Everything already configured! ✅
+  2. Nothing to do! 🎉
 ```
 
 ---
 
-## 💡 Key Benefits
-
-- ✅ **3-step deployment** for business users
-- ✅ **No GCP knowledge** required
-- ✅ **No secrets or keys to manage** (automatic authentication!)
-- ✅ **Automatic CI/CD** via GitHub Actions
-- ✅ **Production-ready** apps in ~20 minutes
-- ✅ **Each app gets its own URL**
-- ✅ **Zero platform team involvement**
-
----
-
-## 🚀 Get Started
+## 🚀 Get Started Now
 
 **Business User?** → Read [SIMPLE.md](SIMPLE.md)
 
@@ -136,4 +137,4 @@ Platform Team:
 
 ---
 
-**That's it!** Everything you need is in this repo. 🎉
+**That's it!** No BS. Just simple, production-ready deployments. 🚀
